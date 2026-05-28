@@ -28,11 +28,13 @@ jobs:
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_BASE_URL: https://redhat.atlassian.net
+          JIRA_DASHBOARD_FILTER_URL: https://redhat.atlassian.net/issues?jql=project%20IN%20(10270)%20AND%20assignee%20IN%20(712020%3A141dd169-222c-447e-b544-78368b6226ea%2C712020%3Adef22b13-c672-4783-996c-36d495e5e11b%2C712020%3Ab34cae5b-d690-43a5-8dcf-651664b04c61%2C712020%3A373765c5-562f-433f-af75-7a2fead13af5)%20AND%20status%20!%3D%20Closed
         run: |
           echo "JIRA_USER_EMAIL=$JIRA_USER_EMAIL" > .env
           echo "JIRA_API_TOKEN=$JIRA_API_TOKEN" >> .env
           echo "JIRA_BASE_URL=$JIRA_BASE_URL" >> .env
-          python3 generate_dashboard.py "https://redhat.atlassian.net/issues/?filter=110799"
+          echo "JIRA_DASHBOARD_FILTER_URL=$JIRA_DASHBOARD_FILTER_URL" >> .env
+          python3 generate_dashboard.py
 
       - name: Commit and push changes
         run: |
